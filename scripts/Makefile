@@ -19,26 +19,22 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 WORKDIR=/tmp/archiso-tmp
-CORE=$(PWD)/core
-VENDOR=$(PWD)/vendor
-OUT=$(PWD)/out
 VERSION=$(shell date +%Y.%m.%d)
+
+PLATFORM=$(PWD)/platform
+TOOLS=$(PWD)/tools
+OUT=$(PWD)/out
 
 
 .PHONY: bootstrap
 
 bootstrap:
-	$(VENDOR)/scripts/bootstrap.sh
-
-.PHONY: env
-
-env:
-	sudo  $(VENDOR)/scripts/environment.sh
+	sudo $(TOOLS)/scripts/_bootstrap.sh
 
 .PHONY: build
 
 build:
-	sudo mkarchiso -v -w $(WORKDIR) -o $(OUT) $(CORE)
+	sudo mkarchiso -v -w $(WORKDIR) -o $(OUT) $(PLATFORM)
 
 .PHONY: clean
 
