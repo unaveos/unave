@@ -22,7 +22,7 @@ WORKDIR=/tmp/archiso-tmp
 VERSION=$(shell date +%Y.%m.%d)
 
 PLATFORM=$(PWD)/platform
-TOOLS=$(PWD)/tools
+SCRIPTS=$(PWD)/scripts
 OUT=$(PWD)/out
 
 #
@@ -32,7 +32,7 @@ OUT=$(PWD)/out
 .PHONY: bootstrap
 
 bootstrap:
-	sudo $(TOOLS)/scripts/_bootstrap.sh
+	sudo $(SCRIPTS)/bootstrap.sh
 
 #
 # @name: sync
