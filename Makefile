@@ -25,22 +25,46 @@ PLATFORM=$(PWD)/platform
 TOOLS=$(PWD)/tools
 OUT=$(PWD)/out
 
-
+#
+# @name: bootstrap
+# @desc: Configures the environment.
+#
 .PHONY: bootstrap
 
 bootstrap:
 	sudo $(TOOLS)/scripts/_bootstrap.sh
 
+#
+# @name: sync
+# @desc: Synchronizes all source code needed for construction.
+#
+.PHONY: sync
+
+sync:
+	repo init -u git@github.com:unaveos/manifest.git -b main && repo sync
+
+#
+# @name: build
+# @desc: Build ISO for UnaveOS.
+#
 .PHONY: build
 
 build:
 	sudo mkarchiso -v -w $(WORKDIR) -o $(OUT) $(PLATFORM)
 
+#
+# @name: clean
+# @desc: Clean the work directory.
+#
 .PHONY: clean
 
 clean:
 	sudo rm -rf $(WORKDIR)
 
+#
+# @name: run
+# @desc: Perform the new build on a VM.
+#
 .PHONY: run
 
 run:
