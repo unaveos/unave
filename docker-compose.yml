@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  arch:
+    image: "archlinux:latest"
+    container_name: "arch"
+    networks:
+      - arch-net
+    privileged: true
+    tty: true
+    volumes:
+      - .:/arch
+
+networks:
+  arch-net:
+    driver: bridge
