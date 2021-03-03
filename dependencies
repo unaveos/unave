@@ -1,0 +1,11 @@
+sudo
+yay
+repo-git
+archiso
+virt-manager
+qemu
+vde2
+ebtables
+dnsmasq
+bridge-utils
+openbsd-netcat

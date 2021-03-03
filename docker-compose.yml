@@ -1,16 +1,16 @@
 version: "3.8"
 
 services:
-  arch:
+  unaveos:
     image: "archlinux:latest"
-    container_name: "arch"
+    container_name: "unaveos"
     networks:
-      - arch-net
+      - unave-net
     privileged: true
     tty: true
     volumes:
-      - .:/arch
+      - .:/$PWD
 
 networks:
-  arch-net:
+  unave-net:
     driver: bridge
