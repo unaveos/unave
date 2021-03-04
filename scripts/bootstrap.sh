@@ -19,30 +19,19 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
+cat >> /etc/pacman.conf <<EOM
+
+[space]
+SigLevel = Optional TrustedOnly
+Server = https://unaveos.github.io/space/x86_64
+EOM
+
 function install_deps() {
-    pacman -Syyu archiso virt-manager qemu vde2 ebtables dnsmasq bridge-utils openbsd-netcat --noconfirm
-}
-
-function set_qemu() {
-    systemctl enable libvirtd.service
-    systemctl start libvirtd.service
-
-    sed -i 's/#unix_sock_group/unix_sock_group/g' /etc/libvirt/libvirtd.conf
-    sed -i 's/#unix_sock_rw_perms/unix_sock_rw_perms/g' /etc/libvirt/libvirtd.conf
-
-    usermod -a -G libvirt $(whoami)
-
-    newgrp libvirt << EONG
-        systemctl restart libvirtd.service
-        modprobe -r kvm_intel
-        modprobe kvm_intel nested=1
-        echo "options kvm-intel nested=1" | tee /etc/modprobe.d/kvm-intel.conf
-EONG
+    pacman -Syu sudo archiso --noconfirm
 }
 
 function main() {
     install_deps
-    set_qemu
 
     sleep 3
 
@@ -50,3 +39,4 @@ function main() {
 }
 
 main
+while(true); do sleep 5; done
