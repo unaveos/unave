@@ -4,6 +4,7 @@ services:
   unaveos:
     image: "archlinux:latest"
     container_name: "unaveos"
+    restart: unless-stopped
     networks:
       - unave-net
     privileged: true
