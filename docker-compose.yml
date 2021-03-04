@@ -5,6 +5,7 @@ services:
     image: "archlinux:latest"
     container_name: "unaveos"
     restart: unless-stopped
+    entrypoint: ["$PWD/scripts/bootstrap.sh"]
     networks:
       - unave-net
     privileged: true
