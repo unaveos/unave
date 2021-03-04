@@ -18,6 +18,6 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-rm -rf ./x86_64/space*
+rm -rf $SPACE/x86_64/space*
 
-repo-add ./x86_64/space.db.tar.gz ./x86_64/*pkg.tar.zst
+repo-add $SPACE/x86_64/space.db.tar.gz $SPACE/x86_64/*pkg.tar.zst
