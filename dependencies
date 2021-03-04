@@ -1,3 +1,10 @@
+# List of all packages needed for construction
+# ...In update
+
+# Main host
+x11docker
+
+# Container
 sudo
 yay
 repo-git

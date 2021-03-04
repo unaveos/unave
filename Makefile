@@ -18,54 +18,53 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+include .env
+
 WORKDIR=/tmp/archiso-tmp
-VERSION=$(shell date +%Y.%m.%d)
+SCRITPS=$(PWD)/scripts
+SPACE=$(PWD)/space
+DIST=$(PWD)/$(OUT)
 
-PLATFORM=$(PWD)/platform
-SCRIPTS=$(PWD)/scripts
-OUT=$(PWD)/out
+export
 
-#
-# @name: bootstrap
-# @desc: Configures the environment.
-#
-.PHONY: bootstrap
+# @name: exec
+# @desc: Executes a command in the defined environment.
+define exec
+    [[ $(USE_DOCKER) == true ]] && docker exec -it $(NAME) $(1) || /bin/bash -c $(1)
+endef
 
-bootstrap:
-	sudo $(SCRIPTS)/bootstrap.sh
-
-#
 # @name: sync
 # @desc: Synchronizes all source code needed for construction.
-#
 .PHONY: sync
-
 sync:
-	repo init -u git@github.com:unaveos/manifest.git -b main && repo sync
+	@$(call exec, repo init -u git@github.com:unaveos/manifest.git -b main && repo sync)
 
-#
+# @name: bootstrap
+# @desc: Configures the environment.
+.PHONY: bootstrap
+bootstrap:
+	@$(call exec, sudo $(SCRITPS)/bootstrap.sh)
+
 # @name: build
 # @desc: Build ISO for UnaveOS.
-#
 .PHONY: build
-
 build:
-	sudo mkarchiso -v -w $(WORKDIR) -o $(OUT) $(PLATFORM)
+	@$(call exec, sudo mkarchiso -v -w $(WORKDIR) -o $(DIST) $(PWD)/platform)
 
-#
 # @name: clean
 # @desc: Clean the work directory.
-#
 .PHONY: clean
-
 clean:
-	sudo rm -rf $(WORKDIR)
+	@$(call exec, sudo rm -rf $(WORKDIR))
 
-#
 # @name: run
 # @desc: Perform the new build on a VM.
-#
 .PHONY: run
-
 run:
-	run_archiso -i $(OUT)/unaveos-$(VERSION)-x86_64.iso
+	@$(call exec, sudo run_archiso -i $(DIST)/$(NAME)-$(VERSION)-x86_64.iso)
+
+# @name: space
+# @desc: Compile and update local packages.
+.PHONY: space
+space:
+	@$(call exec, $(SCRITPS)/space.sh)
