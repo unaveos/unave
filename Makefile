@@ -33,17 +33,17 @@ define exec
     [[ $(USE_DOCKER) == true ]] && docker exec -it $(NAME) $(1) || /bin/bash -c $(1)
 endef
 
+# @name: get_manifest_url
+# @desc: Obtains project URL for the specified protocol.
+define get_manifest_url
+    $(shell [[ $(USE_SSH) == true ]] && echo "git@github.com:unaveos/manifest.git" || echo "https://github.com/unaveos/manifest.git")
+endef
+
 # @name: sync
 # @desc: Synchronizes all source code needed for construction.
 .PHONY: sync
 sync:
-	@$(call exec, repo init -u git@github.com:unaveos/manifest.git -b main && repo sync)
-
-# @name: bootstrap
-# @desc: Configures the environment.
-.PHONY: bootstrap
-bootstrap:
-	@$(call exec, sudo $(SCRITPS)/bootstrap.sh)
+	repo init -u $(call get_manifest_url) -b main && repo sync
 
 # @name: build
 # @desc: Build ISO for UnaveOS.

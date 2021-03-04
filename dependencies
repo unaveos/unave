@@ -2,17 +2,9 @@
 # ...In update
 
 # Main host
-x11docker
+git
+repo
 
 # Container
 sudo
-yay
-repo-git
 archiso
-virt-manager
-qemu
-vde2
-ebtables
-dnsmasq
-bridge-utils
-openbsd-netcat
