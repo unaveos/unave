@@ -12,6 +12,9 @@ services:
     tty: true
     volumes:
       - .:/$PWD
+    environment:
+      USER: $USER
+      PROJECT_DIR: $PWD
 
 networks:
   unave-net:

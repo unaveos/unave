@@ -18,24 +18,29 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-
-cat >> /etc/pacman.conf <<EOM
+function setup() {
+    cat >> /etc/pacman.conf <<EOM
 
 [space]
 SigLevel = Optional TrustedOnly
 Server = https://unaveos.github.io/space/x86_64
 EOM
 
+    useradd -m $USER && passwd -d $USER
+}
+
 function install_deps() {
     pacman -Syu sudo archiso base-devel --noconfirm
 }
 
 function main() {
+    setup &>/dev/null
+
     install_deps
 
     sleep 3
 
-    echo "Done!!"
+    printf "\n\nWork environment successfully set up!\n\n"
 }
 
 main
