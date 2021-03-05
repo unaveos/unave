@@ -1,11 +1,25 @@
-# List of all packages needed for construction
-# ...In update
-
-# Main host
-git
-repo
-
-# Container
 sudo
 archiso
 base-devel
+extra-cmake-modules
+qt5-tools
+qt5-translations
+git
+boost
+kconfig
+kcoreaddons
+kiconthemes
+ki18n
+kio
+solid
+yaml-cpp
+kpmcore
+mkinitcpio-openswap
+ckbcomp
+hwinfo
+qt5-svg
+polkit-qt5
+gtk-update-icon-cache
+plasma-framework
+qt5-xmlpatterns
+libpwquality

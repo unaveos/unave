@@ -30,7 +30,7 @@ EOM
 }
 
 function install_deps() {
-    pacman -Syu sudo archiso base-devel --noconfirm
+    pacman -Syu  $(cat "$PROJECT_DIR/dependencies") --noconfirm
 }
 
 function main() {
