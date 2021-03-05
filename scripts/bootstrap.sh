@@ -27,7 +27,7 @@ Server = https://unaveos.github.io/space/x86_64
 EOM
 
 function install_deps() {
-    pacman -Syu sudo archiso --noconfirm
+    pacman -Syu sudo archiso base-devel --noconfirm
 }
 
 function main() {

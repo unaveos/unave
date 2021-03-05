@@ -8,3 +8,4 @@ repo
 # Container
 sudo
 archiso
+base-devel
