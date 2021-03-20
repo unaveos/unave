@@ -2,8 +2,8 @@
 
 # Copyright (c) 2021 Romullo @hiukky.
 
-# This file is part of UnaveOS
-# (see https://github.com/unaveos).
+# This file is part of FlateOS
+# (see https://github.com/flateos).
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published by
@@ -36,7 +36,7 @@ endef
 # @name: get_manifest_url
 # @desc: Obtains project URL for the specified protocol.
 define get_manifest_url
-    $(shell [[ $(USE_SSH) == true ]] && echo "git@github.com:unaveos/manifest.git" || echo "https://github.com/unaveos/manifest.git")
+    $(shell [[ $(USE_SSH) == true ]] && echo "git@github.com:flateos/manifest.git" || echo "https://github.com/flateos/manifest.git")
 endef
 
 # @name: sync
@@ -46,7 +46,7 @@ sync:
 	repo init -u $(call get_manifest_url) -b main && repo sync
 
 # @name: build
-# @desc: Build ISO for UnaveOS.
+# @desc: Build ISO for FlateOS.
 .PHONY: build
 build:
 	@$(call exec, sudo mkarchiso -v -w $(WORKDIR) -o $(DIST) $(PWD)/platform)

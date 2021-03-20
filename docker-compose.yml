@@ -1,13 +1,13 @@
 version: "3.8"
 
 services:
-  unaveos:
+  flateos:
     image: "archlinux:latest"
-    container_name: "unaveos"
+    container_name: "flateos"
     restart: unless-stopped
     entrypoint: ["$PWD/scripts/bootstrap.sh"]
     networks:
-      - unave-net
+      - flateos-net
     privileged: true
     tty: true
     volumes:
@@ -17,5 +17,5 @@ services:
       PROJECT_DIR: $PWD
 
 networks:
-  unave-net:
+  flateos-net:
     driver: bridge

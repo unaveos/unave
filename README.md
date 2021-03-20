@@ -1,5 +1,5 @@
 <div align="center">
-  <img width="250" alt="unave logo" src="brand.svg"/>
+  <img width="250" alt="flateos logo" src="brand.svg"/>
 </div>
 
 <h3 align="center"> Assembly environment and construction helpers. </h3>

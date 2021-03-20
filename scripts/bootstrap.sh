@@ -2,8 +2,8 @@
 
 # Copyright (c) 2021 Romullo @hiukky.
 
-# This file is part of UnaveOS
-# (see https://github.com/unaveos).
+# This file is part of FlateOS
+# (see https://github.com/flateos).
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published by
@@ -23,7 +23,7 @@ function setup() {
 
 [space]
 SigLevel = Optional TrustedOnly
-Server = https://unaveos.github.io/space/x86_64
+Server = https://flateos.github.io/space/x86_64
 EOM
 
     useradd -m $USER && passwd -d $USER
