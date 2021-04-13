@@ -21,7 +21,7 @@
 include .env
 
 WORKDIR=/tmp/archiso-tmp
-SCRITPS=$(PWD)/scripts
+SCRIPTS=$(PWD)/scripts
 SPACE=$(PWD)/space
 DIST=$(PWD)/$(OUT)
 
@@ -30,7 +30,7 @@ export
 # @name: exec
 # @desc: Executes a command in the defined environment.
 define exec
-    [[ $(USE_DOCKER) == true ]] && docker exec -it $(NAME) $(1) || /bin/bash -c $(1)
+    [[ $(USE_DOCKER) == true ]] && docker exec -it $(NAME) $(1) || /bin/bash -c "$(1)"
 endef
 
 # @name: get_manifest_url
@@ -67,4 +67,4 @@ run:
 # @desc: Compile and update local packages.
 .PHONY: space
 space:
-	@$(call exec, $(SCRITPS)/space.sh)
+	@$(call exec, $(SCRIPTS)/space.sh)
