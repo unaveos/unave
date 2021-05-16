@@ -24,7 +24,8 @@ export
 # @name: exec
 # @desc: Executes a command in the defined environment.
 define exec
-    [[ $(USE_DOCKER) == true ]] && docker exec -it -u 1001:1001 $(ISO_NAME) $(1) || /bin/bash -c "$(1)"
+	[[ $(USE_DOCKER) == true ]] && (docker exec -it \
+	$(shell [[ "$(1)" == *"space"* ]] && echo '-u 1001:1001') $(ISO_NAME) $(1); exit 0) || (/bin/bash -c "$(1)"; exit 0)
 endef
 
 # @name: get_manifest_url
