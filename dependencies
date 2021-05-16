@@ -19,6 +19,8 @@ ckbcomp
 hwinfo
 qt5-svg
 polkit-qt5
+perl
+rust
 gtk-update-icon-cache
 plasma-framework
 qt5-xmlpatterns

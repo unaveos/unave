@@ -19,18 +19,12 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 include .env
-
-WORKDIR=/tmp/archiso-tmp
-SCRIPTS=$(PWD)/scripts
-SPACE=$(PWD)/space
-DIST=$(PWD)/$(OUT)
-
 export
 
 # @name: exec
 # @desc: Executes a command in the defined environment.
 define exec
-    [[ $(USE_DOCKER) == true ]] && docker exec -it $(NAME) $(1) || /bin/bash -c "$(1)"
+    [[ $(USE_DOCKER) == true ]] && docker exec -it -u 1001:1001 $(ISO_NAME) $(1) || /bin/bash -c "$(1)"
 endef
 
 # @name: get_manifest_url
@@ -49,7 +43,7 @@ sync:
 # @desc: Build ISO for FlateOS.
 .PHONY: build
 build:
-	@$(call exec, sudo mkarchiso -v -w $(WORKDIR) -o $(DIST) $(PWD)/platform)
+	@$(call exec, sudo mkarchiso -v -w $(WORKDIR) -o $(ISO_DIST) $(PWD)/platform)
 
 # @name: clean
 # @desc: Clean the work directory.
@@ -61,10 +55,10 @@ clean:
 # @desc: Perform the new build on a VM.
 .PHONY: run
 run:
-	@$(call exec, sudo run_archiso -i $(DIST)/$(NAME)-$(VERSION)-x86_64.iso)
+	@$(call exec, sudo run_archiso -i $(ISO_DIST)/$(ISO_NAME)-$(ISO_VERSION)-x86_64.iso)
 
 # @name: space
 # @desc: Compile and update local packages.
 .PHONY: space
 space:
-	@$(call exec, $(SCRIPTS)/space.sh)
+	@$(call exec, $(SCRIPTS)/space.sh $(PKGS))

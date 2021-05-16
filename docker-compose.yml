@@ -12,9 +12,7 @@ services:
     tty: true
     volumes:
       - .:/$PWD
-    environment:
-      USER: $USER
-      PROJECT_DIR: $PWD
+    env_file: .env
 
 networks:
   flateos-net:

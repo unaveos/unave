@@ -18,6 +18,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+set -eE
+
 function setup() {
     cat >> /etc/pacman.conf <<EOM
 
@@ -26,7 +28,7 @@ SigLevel = Optional TrustedOnly
 Server = https://flateos.github.io/space/x86_64
 EOM
 
-    useradd -m $USER && passwd -d $USER
+    useradd -m $BUILDER && passwd -d $BUILDER
 }
 
 function install_deps() {
