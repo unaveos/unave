@@ -44,7 +44,7 @@ sync:
 # @desc: Build ISO for FlateOS.
 .PHONY: build
 build:
-	@$(call exec, sudo mkarchiso -v -w $(WORKDIR) -o $(ISO_DIST) $(PWD)/platform)
+	@$(call exec, sudo mkarchiso -v -w $(WORKDIR) -o $(ISO_DIST) ./platform)
 
 # @name: clean
 # @desc: Clean the work directory.
@@ -62,4 +62,4 @@ run:
 # @desc: Compile and update local packages.
 .PHONY: space
 space:
-	@$(call exec, $(SCRIPTS)/space.sh $(PKGS))
+	@$(call exec, ./space/space.sh $(PKGS))

@@ -4,8 +4,9 @@ services:
   flateos:
     image: "archlinux:latest"
     container_name: "flateos"
-    restart: unless-stopped
-    entrypoint: ["$PWD/scripts/bootstrap.sh"]
+    restart: always
+    working_dir: $PWD
+    entrypoint: ["./bootstrap.sh"]
     networks:
       - flateos-net
     privileged: true

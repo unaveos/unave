@@ -20,35 +20,30 @@
 
 set -eE
 
-declare -a PKGS=${@}
+function setup() {
+    cat >> /etc/pacman.conf <<EOM
 
-PKG_DIR=$SPACE/pkgbuilds
-OUT_DIR=$SPACE/x86_64
+[space]
+SigLevel = Optional TrustedOnly
+Server = https://flateos.github.io/space/x86_64
+EOM
 
-function make_pkg() {
-    for pkg in $PKGS; do
-        printf "\n\nBuilding the package: $pkg\n\n"
-
-        rm -rf $OUT_DIR/$pkg*
-        (cd "$PKG_DIR/$pkg" && makepkg -f)
-    done
-
-    mv $PKG_DIR/**/*pkg.tar.zst $OUT_DIR
+    useradd -m $ISO_BUILDER && passwd -d $ISO_BUILDER
 }
 
-function update_db() {
-    rm -rf $OUT_DIR/space*
-    repo-add $OUT_DIR/space.db.tar.gz $OUT_DIR/*pkg.tar.zst
+function install_deps() {
+    pacman -Syu  $(cat ./dependencies) --noconfirm
 }
 
 function main() {
-    if [ -n "$PKGS" ]; then
-        make_pkg
-    fi
+    setup &>/dev/null
 
-    update_db
+    install_deps
 
-    printf "\n\nSpace updated successfully!\n\n"
+    sleep 3
+
+    printf "\n\nWork environment successfully set up!\n\n"
 }
 
 main
+while(true); do sleep 5; done
