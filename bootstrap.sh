@@ -33,6 +33,9 @@ EOM
 
 function install_deps() {
     pacman -Syu  $(cat ./dependencies) --noconfirm
+
+    # Rust
+    mkdir -p /.rustup && sudo chown -R 1001:1001 /.rustup
 }
 
 function main() {

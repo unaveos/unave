@@ -1,3 +1,5 @@
+atk
+gtk3
 sudo
 archiso
 base-devel
@@ -12,6 +14,7 @@ kiconthemes
 ki18n
 kio
 solid
+glibc
 yaml-cpp
 kpmcore
 mkinitcpio-openswap
@@ -20,7 +23,7 @@ hwinfo
 qt5-svg
 polkit-qt5
 perl
-rust
+rustup
 gtk-update-icon-cache
 plasma-framework
 qt5-xmlpatterns
