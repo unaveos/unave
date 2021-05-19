@@ -35,7 +35,7 @@ function install_deps() {
     pacman -Syu  $(cat ./dependencies) --noconfirm
 
     # Rust
-    mkdir -p /.rustup && sudo chown -R 1001:1001 /.rustup
+    mkdir -p /.rustup /.cargo && sudo chown -R 1001:1001 /.rustup /.cargo
 }
 
 function main() {
