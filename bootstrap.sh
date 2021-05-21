@@ -29,13 +29,11 @@ Server = https://flateos.github.io/space/x86_64
 EOM
 
     useradd -m $ISO_BUILDER && passwd -d $ISO_BUILDER
+    mkdir -p /.rustup /.cargo /.cache && sudo chown -R 1001:1001 /.rustup /.cargo /.cache
 }
 
 function install_deps() {
     pacman -Syu  $(cat ./dependencies) --noconfirm
-
-    # Rust
-    mkdir -p /.rustup /.cargo && sudo chown -R 1001:1001 /.rustup /.cargo
 }
 
 function main() {
@@ -49,4 +47,5 @@ function main() {
 }
 
 main
-while(true); do sleep 5; done
+
+tail -f /dev/null

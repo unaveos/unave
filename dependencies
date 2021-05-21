@@ -6,6 +6,7 @@ ckbcomp
 extra-cmake-modules
 git
 glibc
+go
 gtk-layer-shell
 gtk-update-icon-cache
 gtk3
@@ -19,6 +20,7 @@ kpmcore
 libpwquality
 mkinitcpio-openswap
 perl
+pacman-contrib
 plasma-framework
 polkit-qt5
 qt5-svg
