@@ -50,7 +50,7 @@ build:
 # @desc: Clean the work directory.
 .PHONY: clean
 clean:
-	@$(call exec, sudo rm -rf $(WORKDIR))
+	@$(call exec, sudo rm -rf $(WORKDIR) $(ISO_DIST))
 
 # @name: run
 # @desc: Perform the new build on a VM.

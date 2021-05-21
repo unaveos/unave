@@ -7,10 +7,12 @@ extra-cmake-modules
 git
 glibc
 go
+grim
 gtk-layer-shell
 gtk-update-icon-cache
 gtk3
 hwinfo
+jq
 kconfig
 kcoreaddons
 ki18n
@@ -19,8 +21,8 @@ kio
 kpmcore
 libpwquality
 mkinitcpio-openswap
-perl
 pacman-contrib
+perl
 plasma-framework
 polkit-qt5
 qt5-svg
@@ -28,9 +30,11 @@ qt5-tools
 qt5-translations
 qt5-xmlpatterns
 rustup
+slurp
 solid
 starship
 sudo
 sway
+wf-recorder
 yaml-cpp
 zsh
