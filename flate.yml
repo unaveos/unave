@@ -112,7 +112,7 @@
         - /src/space
 
     - name: "Pacman: Start keyring"
-      shell: pacman-key --init && pacman-key --add /keys/gpg-pub.key
+      shell: pacman-key --init
 
     - name: "Pacman: Add packager pub key"
       shell: pacman-key --add /keys/gpg-pub.key
