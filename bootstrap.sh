@@ -18,34 +18,12 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+. .env
+
 set -eE
 
-function setup() {
-    cat >> /etc/pacman.conf <<EOM
-
-[space]
-SigLevel = Optional TrustedOnly
-Server = https://flateos.github.io/space/x86_64
-EOM
-
-    useradd -m $ISO_BUILDER && passwd -d $ISO_BUILDER
-    mkdir -p /.rustup /.cargo /.cache && sudo chown -R 1001:1001 /.rustup /.cargo /.cache
-}
-
-function install_deps() {
-    pacman -Syu  $(cat ./dependencies) --noconfirm
-}
-
-function main() {
-    setup &>/dev/null
-
-    install_deps
-
-    sleep 3
-
-    printf "\n\nWork environment successfully set up!\n\n"
-}
-
-main
-
+pacman -Syu ansible --noconfirm
+ansible-playbook flate.yml
 tail -f /dev/null
+
+printf "\n\nWork environment successfully set up!\n\n"

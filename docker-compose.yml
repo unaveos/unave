@@ -5,14 +5,15 @@ services:
     image: "archlinux:latest"
     container_name: "flateos"
     restart: unless-stopped
-    working_dir: $PWD
-    entrypoint: ["./bootstrap.sh"]
+    working_dir: "/src"
+    entrypoint: "./bootstrap.sh"
     networks:
       - flateos-net
     privileged: true
     tty: true
     volumes:
-      - .:/$PWD
+      - .:/src
+      - $DIR__KEYS:/keys
     env_file: .env
 
 networks:
