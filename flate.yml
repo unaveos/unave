@@ -10,7 +10,9 @@
     gpg:
       key: '{{ lookup("env", "GPG__KEY_ID") }}'
       pass: '{{ lookup("env", "GPG__PASSWORD") }}'
-      home: "/home/{{builder.name}}/.gnupg"
+      home_dirs:
+        - "/root/.gnupg"
+        - "/home/{{builder.name}}/.gnupg"
       configs:
         - { name: "gpg-agent.conf", content: "allow-loopback-pinentry" }
         - { name: "gpg.conf", content: "pinentry-mode loopback" }
@@ -87,18 +89,17 @@
     - name: "System: Import GPG key"
       command: "gpg
         --batch
-        --homedir {{gpg.home}}
+        --homedir {{item}}
         --passphrase {{gpg.pass}}
         --allow-secret-key-import --import /keys/gpg.asc"
       become_user: "{{builder.name}}"
       become: no
+      loop: "{{gpg.home_dirs}}"
 
     - name: "System: GPG config"
       copy:
-        dest: "{{gpg.home}}/{{item.name}}"
+        dest: "/usr/share/gnupg/{{item.name}}"
         content: "{{item.content}}"
-      become_user: "{{builder.name}}"
-      become: no
       loop: "{{gpg.configs}}"
 
     - name: "System: Directory permissions for the builder"
@@ -106,9 +107,8 @@
         path: "{{item}}"
         owner: "{{builder.name}}"
         group: "{{builder.name}}"
-        recurse: "yes"
+        recurse: yes
       loop:
-        - "{{gpg.home}}"
         - /src/space
 
     - name: "Pacman: Start keyring"
@@ -127,6 +127,8 @@
       pacman:
         upgrade: yes
         update_cache: yes
+        force: yes
+        state: latest
 
     - name: "Pacman: Install dependencies"
       pacman:

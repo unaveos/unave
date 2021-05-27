@@ -37,36 +37,33 @@ endef
 
 # @name: up
 # @desc: Sets up the building environment.
-.PHONY: up
 up:
 	@docker-compose up -d
 
 # @name: sync
 # @desc: Synchronizes all source code needed for construction.
-.PHONY: sync
 sync:
 	repo init -u $(call get_manifest_url) -b main && repo sync
 
 # @name: up
 # @desc: Provides development environment.
-.PHONY: provision
 provision:
 	@$(call exec, ansible-playbook flate.yml)
 
 # @name: build
 # @desc: Build ISO for FlateOS.
-.PHONY: build
 build:
-	@$(call exec, sudo mkarchiso -v -w $(ISO__TMPDIR) -o $(ISO__DIST) ./platform)
+	@$(call exec, sudo mkarchiso -v -w $(ISO__TMPDIR) -g ${GPG__KEY_ID} \
+	-P '${GPG__NAME} ${GPG__MAIL}' -o $(ISO__DIST) ./platform)
 
 # @name: clean
 # @desc: Clean the work directory.
-.PHONY: clean
 clean:
 	@$(call exec, sudo rm -rf $(ISO__TMPDIR) $(ISO__DIST))
 
 # @name: space
 # @desc: Compile and update local packages.
-.PHONY: space
 space:
 	@$(call exec, sudo -u flate ./space/space.sh $(PKGS))
+
+.PHONY: up sync provision build clean space

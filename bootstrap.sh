@@ -24,6 +24,7 @@ set -eE
 
 pacman -Syu ansible --noconfirm
 ansible-playbook flate.yml
-tail -f /dev/null
 
 printf "\n\nWork environment successfully set up!\n\n"
+
+tail -f /dev/null
