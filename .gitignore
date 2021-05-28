@@ -1,4 +1,5 @@
-.repo
-out
-build*
-.env
+core
+docs
+infra
+pkgs
+web
